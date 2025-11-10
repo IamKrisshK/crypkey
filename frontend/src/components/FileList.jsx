@@ -12,7 +12,7 @@ export default function FileList({ uek, user, files, setFiles }) {
   const handleDecrypt = async (fileMeta) => {
     try {
       setStatus(`⬇️ Downloading ${fileMeta.originalName}...`);
-      const response = await fetch(`http://localhost:8080/api/files/download/${fileMeta.id}`);
+      const response = await fetch(`https://crypkey.onrender.com/api/files/download/${fileMeta.id}`);
       if (!response.ok) return setStatus("❌ File not found on server.");
 
       const cipherArrayBuffer = await response.arrayBuffer();
