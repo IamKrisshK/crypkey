@@ -11,8 +11,6 @@ export default function FileUploadCard({ user, onUploadComplete }) {
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState("");
   const [aiSummary, setAiSummary] = useState(null);
-
-  // 🧠 Step 1: Summarize plaintext before encryption
   const summarizeFile = async (plainText, fileName) => {
     try {
       setStatus("🧠 Summarizing file with AI...");
@@ -57,7 +55,6 @@ export default function FileUploadCard({ user, onUploadComplete }) {
 
       const { wrappedBase64, ivBase64: wrapIvBase64 } = await wrapCekWithUek(cek, uek);
 
-      // Prepare upload payload
       const form = new FormData();
       const blob = new Blob([cipherBuffer], { type: "application/octet-stream" });
       form.append("file", blob, file.name + ".enc");

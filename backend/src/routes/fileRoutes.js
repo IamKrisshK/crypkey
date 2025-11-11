@@ -8,7 +8,15 @@ import {
 } from "../controllers/fileController.js";
 
 const router = express.Router();
-const upload = multer({ dest: "tmp/" });
+const storage = multer.diskStorage({
+  destination: "/tmp",
+  filename: (req, file, cb) => {
+    const id = uuidv4();
+    cb(null, `${id}.enc`);
+  },
+});
+const upload = multer({ storage });
+
 
 router.post("/upload", upload.single("file"), uploadFile);
 router.get("/list", listFiles);
