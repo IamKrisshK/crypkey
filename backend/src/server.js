@@ -9,22 +9,19 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+const allowedOrigins = [
+  "https://crypkey.vercel.app",
+  "http://localhost:3000",
+];
+
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
-
-      const allowedOrigins = [
-        "https://crypkey.vercel.app",
-        "http://localhost:3000",
-      ];
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        console.warn("❌ Blocked CORS request from:", origin);
-        return callback(new Error("Not allowed by CORS"));
-      }
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("Not allowed by CORS"));
     },
+    credentials: true,
   })
 );
 
