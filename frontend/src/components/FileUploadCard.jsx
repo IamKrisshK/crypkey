@@ -67,9 +67,8 @@ export default function FileUploadCard({ user, onUploadComplete }) {
       if (summary) form.append("summary", JSON.stringify(summary));
 
       setStatus("☁️ Uploading securely...");
-      const res = await api.post("/files/upload", form, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await api.post("/files/upload", form);
+
 
       if (res.data.ok) {
         setStatus("✅ File uploaded successfully!");
