@@ -8,10 +8,21 @@ import Recover from "./pages/Recover";
 import Navbar from "./components/Navbar";
 
 export default function App() {
-  const [user, setUser] = useState(() => {
+  const [user, setUser] = useState(null);
+  const [rehydrated, setRehydrated] = useState(false);
+  useEffect(() => {
     const storedUser = sessionStorage.getItem("crypkey-user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (err) {
+        console.error("Failed to parse user:", err);
+        sessionStorage.removeItem("crypkey-user");
+      }
+    }
+    setRehydrated(true);
+  }, []);
+
   useEffect(() => {
     if (user) {
       sessionStorage.setItem("crypkey-user", JSON.stringify(user));
@@ -20,24 +31,25 @@ export default function App() {
     }
   }, [user]);
 
+  if (!rehydrated) return <div>Loading...</div>;
+
   return (
     <Router>
-        <Navbar /> {/* Persistent top bar */}
+      <Navbar />
       <Routes>
-        {/* Welcome page */}
         <Route path="/" element={<Welcome />} />
-
-        {/* Authentication routes */}
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/recover" element={<Recover />} />
-        {/* Protected dashboard route */}
+
+        {/* ✅ Protected route */}
         <Route
           path="/dashboard"
-          element={user ? <Dashboard user={user} /> : <Navigate to="/login" replace />}
+          element={
+            user ? <Dashboard user={user} setUser={setUser} /> : <Navigate to="/login" replace />
+          }
         />
 
-        {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
