@@ -56,7 +56,7 @@ export default function Dashboard({ user }) {
 const styles = {
   container: {
     minHeight: "100vh",
-    background: "linear-gradient(145deg, #f9fafb, #e0f2fe)", // unified gradient
+    background: "linear-gradient(145deg, #f9fafb, #e0f2fe)",
     color: "#1e293b",
     padding: "30px 20px",
     fontFamily: "'Inter', sans-serif",
