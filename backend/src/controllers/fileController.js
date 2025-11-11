@@ -5,12 +5,18 @@ import { v4 as uuidv4 } from "uuid";
 import OpenAI from "openai";
 import { createRequire } from "module";
 
+const isRender = process.env.RENDER === "true" || process.env.RENDER_EXTERNAL_URL;
+const filesDir = isRender
+  ? "/tmp/crypkey-files"             
+  : path.resolve("src/data/files");
+
+if (!fs.existsSync(filesDir)) fs.mkdirSync(filesDir, { recursive: true });
+
 const require = createRequire(import.meta.url);
 const PDFParser = require("pdf2json");
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const filesJson = path.resolve("src/data/files.json");
-const filesDir = path.resolve("src/data/files");
 
 // ---------- Helpers ----------
 function readFiles() {
