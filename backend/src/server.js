@@ -11,7 +11,20 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://crypkey.vercel.app","http://localhost:3000"],
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      const allowedOrigins = [
+        "https://crypkey.vercel.app",
+        "http://localhost:3000",
+      ];
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        console.warn("❌ Blocked CORS request from:", origin);
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
