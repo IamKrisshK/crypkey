@@ -62,7 +62,7 @@ export const inputs = {
     borderRadius: "8px",
     border: `1px solid ${colors.inputBorder}`,
     background: colors.inputBg,
-    color: "#fffffe",
+    color: "#110011",
     fontSize: "1rem",
   },
   textarea: {
@@ -72,7 +72,7 @@ export const inputs = {
     padding: "10px",
     border: `1px solid ${colors.inputBorder}`,
     background: colors.inputBg,
-    color: "#ffffee",
+    color: "#110011",
     fontSize: "1rem",
   },
 };

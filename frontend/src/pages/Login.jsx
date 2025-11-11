@@ -84,7 +84,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     minHeight: "100vh",
-    background: "linear-gradient(145deg, #f9fafb, #e0f2fe)", // soft gray → pale blue
+    background: "linear-gradient(145deg, #f9fafb, #e0f2fe)", 
     color: "#1e293b",
   },
   card: {
